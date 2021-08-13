@@ -33,7 +33,7 @@ fetch(endpoint)
 // })
 )
 
-console.log(cities)
+// console.log(cities)
 
 // function filterCities(e) {
 //   e.preventDefault()
@@ -49,11 +49,22 @@ function findMatches(wordToMatch, cities) {
   })
 }
 
-function displayMatches() {
-  console.log(this.value)
+function displayMatches(e) {
+  e.preventDefault()
+  const matches = findMatches(this.value, cities)
+  const html = matches.map(place => {
+    const pop = place.population
+    return `
+    <li>
+      <span class='name'>${place.city}, ${place.state}</span>
+      <span class='population'>Population: ${pop}</span>
+    </li> 
+    `
+  })
+  suggestion.innerHTML = html
 }
-
 searchInput.addEventListener('change', displayMatches)
+searchInput.addEventListener('keyup', displayMatches)
 
 </script>
 </body>
